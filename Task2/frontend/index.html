@@ -1,11 +1,69 @@
+<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Public Form</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="heading">Public Form</h2>
+      <form id="publicForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="number">Mobile Number:</label>
+          <input type="text" id="number" name="number" required pattern="\d+" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="profile">Profile:</label>
+          <input type="text" id="profile" name="profile" required />
+        </div>
+        <div class="form-group">
+          <label for="key_skills">Key Skills:</label>
+          <textarea id="key_skills" name="key_skills" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="location">Location:</label>
+          <input type="text" id="location" name="location" required />
+        </div>
+        <div class="form-group">
+          <label for="resume">Resume:</label>
+          <input type="file" id="resume" name="resume" required />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("publicForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(this);
+
+          try {
+            const response = await fetch("http://localhost:8080/submit", {
+              method: "POST",
+              body: formData,
+            });
+
+            if (response.ok) {
+              alert("Form submitted successfully!");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+    </script>
+  </body>
 </html>
